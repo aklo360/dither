@@ -39,7 +39,7 @@ export default function EnterpriseSection() {
               Need More Firepower?
             </h2>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto mb-12 leading-relaxed">
-              Enterprise solutions built for scale. Custom AI models, dedicated infrastructure, 
+              Enterprise solutions built for scale. Custom LoRa character models & mascot development, fine tuned brand style models 
               and white-glove service for organizations that demand the extraordinary.
             </p>
           </motion.div>
@@ -56,22 +56,22 @@ export default function EnterpriseSection() {
               <div className="p-4 bg-primary/20 rounded-2xl mb-4">
                 <Shield className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Enterprise Security</h3>
-              <p className="text-muted-foreground">SOC 2 compliant with custom security controls</p>
+              <h3 className="text-xl font-semibold mb-2">Custom LoRa Models</h3>
+              <p className="text-muted-foreground">Fine tuned models based on your brand's mascot and style guidelines.</p>
             </div>
             <div className="flex flex-col items-center text-center">
-              <div className="p-4 bg-accent/20 rounded-2xl mb-4">
-                <Users className="w-8 h-8 text-accent" />
+              <div className="p-4 bg-primary/20 rounded-2xl mb-4">
+                <Users className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Dedicated Team</h3>
+              <h3 className="text-xl font-semibold mb-2">AI Influencer Creation</h3>
               <p className="text-muted-foreground">Account managers, engineers, and strategists</p>
             </div>
             <div className="flex flex-col items-center text-center">
               <div className="p-4 bg-primary/20 rounded-2xl mb-4">
                 <Zap className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Custom AI Models</h3>
-              <p className="text-muted-foreground">Trained specifically for your brand and industry</p>
+              <h3 className="text-xl font-semibold mb-2">Mass Quantity</h3>
+              <p className="text-muted-foreground">Enough Video & Photo content to keep you posting all month long.</p>
             </div>
           </motion.div>
 
@@ -83,7 +83,7 @@ export default function EnterpriseSection() {
           >
             <button
               onClick={handleContactUs}
-              className="group bg-gradient-primary px-12 py-6 rounded-2xl text-xl font-medium text-white hover:shadow-glow transition-all duration-500 inline-flex items-center gap-4"
+              className="group bg-gradient-to-r from-gray-700 to-gray-800 text-white hover:shadow-glow hover:from-gray-600 hover:to-gray-700 px-12 py-6 rounded-2xl text-xl font-medium transition-all duration-500 inline-flex items-center gap-4"
             >
               Contact Our Enterprise Team
               <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" />

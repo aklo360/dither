@@ -43,7 +43,7 @@ const caseStudies = [
     title: "HealthStream",
     category: "HealthTech",
     description: "Telemedicine platform achieving 95% patient satisfaction scores",
-    coverImage: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=600&fit=crop",
+    coverImage: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600&fit=crop",
     videoUrl: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
     tags: ["HealthTech", "Telemedicine", "UX"]
   },
@@ -62,7 +62,7 @@ export default function CaseStudies() {
   const [hoveredCase, setHoveredCase] = useState<number | null>(null);
 
   return (
-    <section className="py-24 px-6 relative">
+    <section id="case-studies" className="py-24 px-6 relative">
       <div className="max-w-7xl mx-auto">
         <motion.div
           className="text-center mb-16"
@@ -72,11 +72,9 @@ export default function CaseStudies() {
           viewport={{ once: true }}
         >
           <h2 className="text-5xl md:text-6xl font-bold gradient-text mb-6">
-            Case Studies
+            Portfolio Work
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Real results from our AI-powered advertising campaigns. Each project represents 
-            a unique challenge solved through data-driven creativity.
           </p>
         </motion.div>
 
@@ -140,18 +138,6 @@ export default function CaseStudies() {
             </motion.div>
           ))}
         </div>
-
-        <motion.div
-          className="text-center mt-12"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          viewport={{ once: true }}
-        >
-          <button className="glass-intense px-8 py-4 rounded-2xl text-lg font-medium hover:shadow-glow transition-all duration-500">
-            View All Case Studies
-          </button>
-        </motion.div>
       </div>
     </section>
   );

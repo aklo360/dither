@@ -88,8 +88,8 @@ export default function ContactForm() {
                 </div>
                 
                 <div className="flex items-center gap-4">
-                  <div className="p-3 bg-accent/20 rounded-xl">
-                    <MessageSquare className="w-6 h-6 text-accent" />
+                  <div className="p-3 bg-primary/20 rounded-xl">
+                    <MessageSquare className="w-6 h-6 text-primary" />
                   </div>
                   <div>
                     <p className="font-medium">Live Chat</p>
