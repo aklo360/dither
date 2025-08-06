@@ -55,16 +55,26 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden grain">
+    <section className="relative h-screen flex items-center justify-center overflow-hidden grain static">
       {/* 3D Background */}
-      <div className="absolute inset-0 opacity-40">
+      <div className="absolute inset-0 opacity-30">
         <Canvas camera={{ position: [0, 0, 1] }}>
           <ParticleField />
         </Canvas>
       </div>
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-glow opacity-60"></div>
+      {/* Gradient Overlay with Dithering */}
+      <div className="absolute inset-0 bg-gradient-glow opacity-40 dither"></div>
+      
+      {/* Noise Overlay */}
+      <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
+        <div className="w-full h-full bg-repeat animate-static-flicker" 
+             style={{
+               backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-opacity='0.5'%3E%3Cpolygon fill='%23ffffff' points='50 0 60 40 100 50 60 60 50 100 40 60 0 50 40 40'/%3E%3C/g%3E%3C/svg%3E")`,
+               backgroundSize: '8px 8px'
+             }}>
+        </div>
+      </div>
 
       {/* Content */}
       <div className="relative z-10 text-center max-w-6xl mx-auto px-6">
@@ -99,9 +109,15 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <button className="glass-intense px-8 py-4 rounded-2xl text-lg font-medium hover:shadow-glow transition-all duration-500 group">
+          <button className="glass-intense px-8 py-4 rounded-2xl text-lg font-medium hover:shadow-glow transition-all duration-500 group relative overflow-hidden">
             <span className="relative z-10">Explore Our Work</span>
-            <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-500"></div>
+            <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-15 rounded-2xl transition-opacity duration-500"></div>
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+              <div className="w-full h-full" style={{
+                backgroundImage: `repeating-linear-gradient(45deg, transparent 0px, rgba(255,255,255,0.1) 1px, transparent 2px)`,
+                backgroundSize: '4px 4px'
+              }}></div>
+            </div>
           </button>
         </motion.div>
       </div>

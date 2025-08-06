@@ -113,7 +113,7 @@ export default function PricingSection() {
             <motion.div
               key={plan.name}
               className={`glass-intense rounded-3xl p-8 relative overflow-hidden group hover:shadow-glow transition-all duration-500 ${
-                plan.popular ? 'ring-2 ring-primary/50 scale-105' : ''
+                plan.popular ? 'ring-2 ring-primary/50 scale-105 static' : 'dither'
               }`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}

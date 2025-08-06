@@ -128,6 +128,27 @@ export default {
 				'scale-in': {
 					'0%': { opacity: '0', transform: 'scale(0.95)' },
 					'100%': { opacity: '1', transform: 'scale(1)' },
+				},
+				'static-flicker': {
+					'0%': { opacity: '0.015' },
+					'100%': { opacity: '0.025' },
+				},
+				'grain-shift': {
+					'0%': { transform: 'translateX(0) translateY(0)' },
+					'10%': { transform: 'translateX(-5px) translateY(-5px)' },
+					'20%': { transform: 'translateX(5px) translateY(0)' },
+					'30%': { transform: 'translateX(0) translateY(5px)' },
+					'40%': { transform: 'translateX(-5px) translateY(0)' },
+					'50%': { transform: 'translateX(0) translateY(-5px)' },
+					'60%': { transform: 'translateX(5px) translateY(5px)' },
+					'70%': { transform: 'translateX(0) translateY(0)' },
+					'80%': { transform: 'translateX(-5px) translateY(5px)' },
+					'90%': { transform: 'translateX(5px) translateY(-5px)' },
+					'100%': { transform: 'translateX(0) translateY(0)' },
+				},
+				'static-lines': {
+					'0%': { backgroundPosition: '0px 0px' },
+					'100%': { backgroundPosition: '0px 4px' },
 				}
 			},
 			animation: {
@@ -137,7 +158,10 @@ export default {
 				'glow': 'glow 2s ease-in-out infinite alternate',
 				'shimmer': 'shimmer 2s linear infinite',
 				'fade-in': 'fade-in 0.6s ease-out',
-				'scale-in': 'scale-in 0.4s ease-out'
+				'scale-in': 'scale-in 0.4s ease-out',
+				'static-flicker': 'static-flicker 0.15s infinite linear alternate',
+				'grain-shift': 'grain-shift 8s infinite linear',
+				'static-lines': 'static-lines 0.1s infinite linear'
 			}
 		}
 	},

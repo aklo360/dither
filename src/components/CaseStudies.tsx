@@ -84,7 +84,7 @@ export default function CaseStudies() {
           {caseStudies.map((study, index) => (
             <motion.div
               key={study.id}
-              className="glass rounded-3xl overflow-hidden group cursor-pointer hover:shadow-glow transition-all duration-500"
+              className="glass rounded-3xl overflow-hidden group cursor-pointer hover:shadow-glow transition-all duration-500 relative"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -111,7 +111,7 @@ export default function CaseStudies() {
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent dither"></div>
                 <div className="absolute top-4 left-4">
                   <span className="px-3 py-1 bg-primary/20 glass text-primary-foreground text-sm rounded-full">
                     {study.category}
