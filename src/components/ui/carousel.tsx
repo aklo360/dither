@@ -17,6 +17,7 @@ type CarouselProps = {
   plugins?: CarouselPlugin
   orientation?: "horizontal" | "vertical"
   setApi?: (api: CarouselApi) => void
+  gutter?: boolean
 }
 
 type CarouselContextProps = {
@@ -26,6 +27,7 @@ type CarouselContextProps = {
   scrollNext: () => void
   canScrollPrev: boolean
   canScrollNext: boolean
+  gutter: boolean
 } & CarouselProps
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null)
@@ -50,6 +52,7 @@ const Carousel = React.forwardRef<
       opts,
       setApi,
       plugins,
+      gutter = true,
       className,
       children,
       ...props
@@ -130,6 +133,7 @@ const Carousel = React.forwardRef<
           scrollNext,
           canScrollPrev,
           canScrollNext,
+          gutter,
         }}
       >
         <div
@@ -148,19 +152,25 @@ const Carousel = React.forwardRef<
 )
 Carousel.displayName = "Carousel"
 
+type CarouselContentProps = React.HTMLAttributes<HTMLDivElement> & {
+  viewportClassName?: string
+}
+
 const CarouselContent = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
-  const { carouselRef, orientation } = useCarousel()
+  CarouselContentProps
+>(({ className, viewportClassName, ...props }, ref) => {
+  const { carouselRef, orientation, gutter } = useCarousel()
 
   return (
-    <div ref={carouselRef} className="overflow-hidden h-full">
+    <div ref={carouselRef} className={cn("overflow-hidden", viewportClassName ?? "h-full") }>
       <div
         ref={ref}
         className={cn(
           "flex",
-          orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
+          orientation === "horizontal"
+            ? gutter ? "-ml-4" : "ml-0"
+            : gutter ? "-mt-4 flex-col" : "mt-0 flex-col",
           className
         )}
         {...props}
@@ -174,7 +184,7 @@ const CarouselItem = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
-  const { orientation } = useCarousel()
+  const { orientation, gutter } = useCarousel()
 
   return (
     <div
@@ -183,7 +193,7 @@ const CarouselItem = React.forwardRef<
       aria-roledescription="slide"
       className={cn(
         "min-w-0 shrink-0 grow-0 basis-full",
-        orientation === "horizontal" ? "pl-4" : "pt-4",
+        orientation === "horizontal" ? (gutter ? "pl-4" : "pl-0") : (gutter ? "pt-4" : "pt-0"),
         className
       )}
       {...props}

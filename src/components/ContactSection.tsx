@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Shield, Users, Zap } from 'lucide-react';
+import { Shield, Users, Zap, Mail } from 'lucide-react';
 
 export default function ContactSection() {
 
@@ -74,8 +74,20 @@ export default function ContactSection() {
             transition={{ duration: 0.8, delay: 0.6 }}
             viewport={{ once: true }}
           >
-            <div className="inline-flex items-center gap-3 px-6 py-5 rounded-2xl bg-white/5 border border-white/10 shadow-lg shadow-black/20 backdrop-blur text-lg md:text-xl text-white/90">
-              <span className="text-muted-foreground/90">Email us at</span>
+            {/* Mobile: clickable mailto with icon; Desktop: keep copy-only pill */}
+            <a
+              href="mailto:info@dither.agency"
+              className="sm:hidden inline-flex items-center gap-3 px-5 py-4 rounded-2xl bg-white/5 border border-white/10 shadow-lg shadow-black/20 backdrop-blur text-base text-white/90"
+              aria-label="Email info@dither.agency"
+            >
+              <Mail className="w-5 h-5 text-primary" />
+              <span className="font-semibold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+                info@dither.agency
+              </span>
+            </a>
+
+            <div className="hidden sm:inline-flex items-center gap-3 px-6 py-5 rounded-2xl bg-white/5 border border-white/10 shadow-lg shadow-black/20 backdrop-blur text-lg md:text-xl text-white/90">
+              <span className="text-muted-foreground/90">Email us at{' '}</span>
               <span className="font-semibold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
                 info@dither.agency
               </span>

@@ -183,7 +183,7 @@ export default function CaseStudies() {
         </div>
       </div>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-5xl p-0 h-[80%] max-h-[90%] overflow-hidden gap-0 rounded-3xl glass-black edge-light ring-1 ring-white/10 shadow-glow">
+        <DialogContent className="max-w-5xl p-0 h-[90vh] sm:h-[80%] max-h-[90vh] sm:max-h-[90%] overflow-hidden sm:overflow-hidden gap-0 rounded-3xl glass-black edge-light ring-1 ring-white/10 shadow-glow">
           {active && (
             ((active as any).singleColumnVideo ? (
               // Single-column, wide 16:9 video only (e.g., Betway, CVC) with brand header
@@ -198,7 +198,6 @@ export default function CaseStudies() {
                       src={`${active.videoUrl}?modestbranding=1&rel=0&controls=1&playsinline=1`}
                       title={active.title}
                       frameBorder="0"
-                      referrerPolicy="strict-origin-when-cross-origin"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
                     />
@@ -213,31 +212,36 @@ export default function CaseStudies() {
                     <DialogHeader className="shrink-0">
                       <DialogTitle className="text-xl font-bold">{active.title}</DialogTitle>
                     </DialogHeader>
-                    <div className="flex-1 min-h-0 flex items-center justify-center">
-                      <Carousel className="w-full relative flex-1 min-h-0" opts={{ loop: true }}>
-                        <CarouselContent className="h-full">
+                    <div className="w-full h-[66vh] sm:h-[70vh] flex items-center justify-center">
+                      <Carousel key={`${active.id}-mobile`} className="w-full relative" opts={{ loop: true }} gutter={false}>
+                        <CarouselContent viewportClassName="h-[66vh] sm:h-[70vh]">
                           {[...((((active as any).videoUrls ?? [active.videoUrl]) as string[])), ...((((active as any).gallery ?? []) as string[]))].map((item: string, i: number) => (
-                            <CarouselItem key={`${item}-${i}`} className="h-full">
-                              <FitBox ratio={9/16}>
+                            <CarouselItem key={`${item}-${i}`} className="h-full flex items-center justify-center">
+                              <div className="w-full h-full flex items-center justify-center">
                                 {item.includes('youtube') || item.includes('youtu.be') ? (
-                                  <iframe
-                                    className="block w-full h-full rounded-xl"
-                                    src={`${item}?modestbranding=1&rel=0&controls=1&playsinline=1`}
-                                    title={`${active.title} Media ${i+1}`}
-                                    frameBorder="0"
-                                    referrerPolicy="strict-origin-when-cross-origin"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    allowFullScreen
-                                  />
+                                  <FitBox ratio={9/16} className="bg-black/40 rounded-xl">
+                                    <iframe
+                                      className="block w-full h-full rounded-xl"
+                                      src={`${item}?modestbranding=1&rel=0&controls=1&playsinline=1`}
+                                      title={`${active.title} Media ${i+1}`}
+                                      frameBorder="0"
+                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                      allowFullScreen
+                                    />
+                                  </FitBox>
                                 ) : (
-                                  <img src={item} alt={`${active.title} ${i+1}`} className="block h-full w-auto max-w-full object-contain rounded-xl" />
+                                  <img
+                                    src={item}
+                                    alt={`${active.title} ${i+1}`}
+                                    className="w-full h-full object-contain rounded-xl bg-black/40"
+                                  />
                                 )}
-                              </FitBox>
+                              </div>
                             </CarouselItem>
                           ))}
                         </CarouselContent>
-                        <CarouselPrevious className="left-2 bg-white/10 hover:bg-white/20 border-0 text-white" />
-                        <CarouselNext className="right-2 bg-white/10 hover:bg-white/20 border-0 text-white" />
+                        <CarouselPrevious className="left-2 bg-white/10 hover:bg-white/20 border-0 text-white z-20" />
+                        <CarouselNext className="right-2 bg-white/10 hover:bg-white/20 border-0 text-white z-20" />
                       </Carousel>
                     </div>
                     <p className="text-muted-foreground text-sm">
@@ -261,7 +265,6 @@ export default function CaseStudies() {
                                   src={`${url}?modestbranding=1&rel=0&controls=1&playsinline=1`}
                                   title={`${active.title} Variant ${i+1}`}
                                   frameBorder="0"
-                                  referrerPolicy="strict-origin-when-cross-origin"
                                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                   allowFullScreen
                                 />

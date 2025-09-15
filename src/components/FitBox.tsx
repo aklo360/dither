@@ -20,8 +20,20 @@ export default function FitBox({ ratio, className, children }: FitBoxProps) {
 
     const update = () => {
       const rect = el.getBoundingClientRect();
-      const cw = rect.width;
-      const ch = rect.height;
+      let cw = rect.width;
+      let ch = rect.height;
+
+      // Fallbacks for cases where height or width is 0 at mount (e.g., hidden until dialog opens)
+      if (!cw) {
+        const parent = el.parentElement as HTMLElement | null;
+        if (parent) cw = parent.getBoundingClientRect().width;
+        if (!cw) cw = window.innerWidth;
+      }
+      if (!ch) {
+        const parent = el.parentElement as HTMLElement | null;
+        if (parent) ch = parent.getBoundingClientRect().height;
+        if (!ch) ch = Math.min(window.innerHeight * 0.7, window.innerHeight - 120);
+      }
       if (!cw || !ch) return;
 
       // Compute contained size preserving aspect ratio, fitting within cw x ch.
@@ -37,8 +49,17 @@ export default function FitBox({ ratio, className, children }: FitBoxProps) {
 
     const ro = new ResizeObserver(update);
     ro.observe(el);
+    // Run a few times to catch late layout on dialogs/modals
     update();
-    return () => ro.disconnect();
+    const raf = requestAnimationFrame(update);
+    const t = setTimeout(update, 60);
+    window.addEventListener('resize', update);
+    return () => {
+      ro.disconnect();
+      cancelAnimationFrame(raf);
+      clearTimeout(t);
+      window.removeEventListener('resize', update);
+    };
   }, [ratio]);
 
   return (
@@ -49,4 +70,3 @@ export default function FitBox({ ratio, className, children }: FitBoxProps) {
     </div>
   );
 }
-
