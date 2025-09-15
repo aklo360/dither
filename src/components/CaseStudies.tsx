@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/carousel';
 import FitBox from './FitBox';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const caseStudies = [
   {
@@ -92,6 +93,7 @@ export default function CaseStudies() {
   const [open, setOpen] = useState(false);
   const [activeId, setActiveId] = useState<number | null>(null);
   const active = caseStudies.find((c) => c.id === activeId) as (typeof caseStudies)[number] | undefined;
+  const [mobileApi, setMobileApi] = useState<import('./ui/carousel').CarouselApi | null>(null);
 
   const SlideMedia = ({ item, index, title, videoRatios }: { item: string; index: number; title: string; videoRatios?: number[] }) => {
     const isYoutube = item.includes('youtube') || item.includes('youtu.be');
@@ -227,7 +229,7 @@ export default function CaseStudies() {
         </div>
       </div>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-5xl p-0 h-[90vh] sm:h-[80%] max-h-[90vh] sm:max-h-[90%] overflow-hidden sm:overflow-hidden gap-0 rounded-3xl glass-black edge-light ring-1 ring-white/10 shadow-glow">
+        <DialogContent className="max-w-5xl p-4 sm:p-6 h-[85%] sm:h-[80%] max-h-[90%] overflow-hidden gap-0 rounded-3xl glass-black edge-light ring-1 ring-white/10 shadow-glow">
           {active && (
             ((active as any).singleColumnVideo ? (
               // Single-column, wide 16:9 video only (e.g., Betway, CVC) with brand header
@@ -252,24 +254,28 @@ export default function CaseStudies() {
               <>
                 {/* Mason Pearson: Mobile-optimized single carousel (videos + photos) */}
                 {active.id === 1 && (
-                  <div className="lg:hidden h-full min-h-0 bg-black/60 glass-black flex flex-col p-4 gap-4 rounded-3xl">
-                    <DialogHeader className="shrink-0">
-                      <DialogTitle className="text-xl font-bold">{active.title}</DialogTitle>
+                  <div className="lg:hidden h-full min-h-0 bg-black/60 glass-black flex flex-col gap-4 rounded-2xl overflow-hidden">
+                    <DialogHeader className="shrink-0 w-full">
+                      <DialogTitle className="text-xl font-bold break-words whitespace-normal text-pretty w-full">{active.title}</DialogTitle>
                     </DialogHeader>
-                    <div className="w-full h-[66vh] sm:h-[70vh] flex items-center justify-center">
-                      <Carousel key={`${active.id}-mobile`} className="w-full relative" opts={{ loop: true }} gutter={false}>
-                        <CarouselContent className="h-full" viewportClassName="h-[66vh] sm:h-[70vh]">
+                    <div className="flex-1 min-h-0 relative w-full">
+                      <Carousel key={`${active.id}-mobile-${open ? 'open' : 'closed'}`} className="w-full h-full" opts={{ loop: true }} gutter={false} setApi={setMobileApi}>
+                        <CarouselContent className="h-full w-full" viewportClassName="h-full">
                           {[...((((active as any).videoUrls ?? [active.videoUrl]) as string[])), ...((((active as any).gallery ?? []) as string[]))].map((item: string, i: number) => (
-                            <CarouselItem key={`${item}-${i}`} className="h-full flex items-center justify-center">
+                            <CarouselItem key={`${item}-${i}`} className="h-full flex items-center justify-center p-1">
                               <SlideMedia item={item} index={i} title={active.title} videoRatios={(active as any).videoRatios} />
                             </CarouselItem>
                           ))}
                         </CarouselContent>
-                        <CarouselPrevious className="left-2 bg-white/10 hover:bg-white/20 border-0 text-white z-20" />
-                        <CarouselNext className="right-2 bg-white/10 hover:bg-white/20 border-0 text-white z-20" />
+                        <button type="button" aria-label="Previous" onClick={() => mobileApi?.scrollPrev()} className="absolute left-2 top-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-white/10 backdrop-blur border border-white/10 text-white flex items-center justify-center z-20">
+                          <ChevronLeft className="w-5 h-5" />
+                        </button>
+                        <button type="button" aria-label="Next" onClick={() => mobileApi?.scrollNext()} className="absolute right-2 top-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-white/10 backdrop-blur border border-white/10 text-white flex items-center justify-center z-20">
+                          <ChevronRight className="w-5 h-5" />
+                        </button>
                       </Carousel>
                     </div>
-                    <p className="text-muted-foreground text-sm">
+                    <p className="text-muted-foreground text-sm break-words whitespace-normal text-pretty w-full">
                       {(active as any).blurb ?? active.description}
                     </p>
                   </div>
