@@ -12,6 +12,10 @@ const caseStudies = [
     description: "Photo & Video campaign entitled The Heritage Hairbrush Brand.",
     coverImage: "/portfolio/mp1.png",
     videoUrl: "https://www.youtube.com/embed/VXMov5uNEZo",
+    videoUrls: [
+      "https://www.youtube.com/embed/VXMov5uNEZo",
+      "https://www.youtube.com/embed/ZtkNU7l6pHg",
+    ],
     tags: ["Luxury", "Product"],
     blurb: "We created a photo/video campaign entitled The Heritage Hairbrush Brand, featuring a set of stills as well as a :30sec hero spot  + a :15sec cutdown to introduce a new market (Toronto & Vancouver) to Mason Pearson.",
     gallery: [
@@ -208,12 +212,12 @@ export default function CaseStudies() {
                   {active.id === 1 ? (
                     <Carousel className="w-full h-full relative" opts={{ loop: true }}>
                       <CarouselContent className="h-full">
-                        {[0,1].map((i) => (
-                          <CarouselItem key={i} className="h-full">
+                        {(((active as any).videoUrls ?? [active.videoUrl]) as string[]).map((url, i) => (
+                          <CarouselItem key={`${url}-${i}`} className="h-full">
                             <FitBox ratio={9/16}>
                               <iframe
                                 className="block w-full h-full rounded-xl"
-                                src={`${active.videoUrl}?modestbranding=1&rel=0&controls=1&playsinline=1`}
+                                src={`${url}?modestbranding=1&rel=0&controls=1&playsinline=1`}
                                 title={`${active.title} Variant ${i+1}`}
                                 frameBorder="0"
                                 referrerPolicy="strict-origin-when-cross-origin"

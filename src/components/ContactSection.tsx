@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Shield, Users, Zap } from 'lucide-react';
+import { Shield, Users, Zap } from 'lucide-react';
 
-export default function EnterpriseSection() {
+export default function ContactSection() {
 
   return (
     <section className="py-24 px-6 relative overflow-hidden">
@@ -17,9 +17,8 @@ export default function EnterpriseSection() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute top-8 left-8 w-32 h-32 border border-primary rounded-full"></div>
+          {/* Background Pattern (decorative; ignore pointer events) */}
+          <div className="absolute inset-0 opacity-5 pointer-events-none">
             <div className="absolute bottom-8 right-8 w-24 h-24 border border-accent rounded-full"></div>
             <div className="absolute top-1/2 left-8 w-16 h-16 bg-primary/20 rounded-full blur-sm"></div>
           </div>
@@ -31,10 +30,10 @@ export default function EnterpriseSection() {
             viewport={{ once: true }}
           >
             <h2 className="text-5xl md:text-7xl font-bold gradient-text mb-6">
-              Book a Free Consultation
+              Contact Us
             </h2>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto mb-12 leading-relaxed">
-              Book a call with us today to dicuss your company's marketing needs and how we can assist on a one-time or ongoing basis.
+              Reach out to dicuss your company's marketing needs and how we can assist on a one-time or ongoing basis.
             </p>
           </motion.div>
 
@@ -75,14 +74,13 @@ export default function EnterpriseSection() {
             transition={{ duration: 0.8, delay: 0.6 }}
             viewport={{ once: true }}
           >
-            <a
-              href="mailto:info@dither.agency"
-              className="group bg-gradient-to-r from-gray-700 to-gray-800 text-white hover:shadow-glow hover:from-gray-600 hover:to-gray-700 px-12 py-6 rounded-2xl text-xl font-medium transition-all duration-500 inline-flex items-center gap-4"
-            >
-              Reach Out
-              <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" />
-            </a>
-            
+            <div className="inline-flex items-center gap-3 px-6 py-5 rounded-2xl bg-white/5 border border-white/10 shadow-lg shadow-black/20 backdrop-blur text-lg md:text-xl text-white/90">
+              <span className="text-muted-foreground/90">Email us at</span>
+              <span className="font-semibold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+                info@dither.agency
+              </span>
+            </div>
+
           </motion.div>
         </motion.div>
       </div>
