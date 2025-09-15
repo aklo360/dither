@@ -16,6 +16,7 @@ const caseStudies = [
       "https://www.youtube.com/embed/VXMov5uNEZo",
       "https://www.youtube.com/embed/ZtkNU7l6pHg",
     ],
+    videoRatios: [9/16, 9/16],
     tags: ["Luxury", "Product"],
     blurb: "We created a photo/video campaign entitled The Heritage Hairbrush Brand, featuring a set of stills as well as a :30sec hero spot  + a :15sec cutdown to introduce a new market (Toronto & Vancouver) to Mason Pearson.",
     gallery: [
@@ -91,6 +92,49 @@ export default function CaseStudies() {
   const [open, setOpen] = useState(false);
   const [activeId, setActiveId] = useState<number | null>(null);
   const active = caseStudies.find((c) => c.id === activeId) as (typeof caseStudies)[number] | undefined;
+
+  const SlideMedia = ({ item, index, title, videoRatios }: { item: string; index: number; title: string; videoRatios?: number[] }) => {
+    const isYoutube = item.includes('youtube') || item.includes('youtu.be');
+    const [imgRatio, setImgRatio] = useState<number | null>(null);
+
+    if (isYoutube) {
+      const ratio = videoRatios?.[index] ?? 9/16;
+      return (
+        <FitBox ratio={ratio} className="bg-black/40 rounded-xl">
+          <iframe
+            className="block w-full h-full rounded-xl"
+            src={`${item}?modestbranding=1&rel=0&controls=1&playsinline=1`}
+            title={`${title} Media ${index + 1}`}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          />
+        </FitBox>
+      );
+    }
+
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        {imgRatio ? (
+          <FitBox ratio={imgRatio} className="bg-black/40 rounded-xl">
+            <img src={item} alt={`${title} ${index + 1}`} className="block w-full h-full object-contain rounded-xl" />
+          </FitBox>
+        ) : (
+          <img
+            src={item}
+            alt={`${title} ${index + 1}`}
+            className="max-w-full max-h-full object-contain rounded-xl bg-black/40"
+            onLoad={(e) => {
+              const t = e.currentTarget;
+              if (t.naturalWidth && t.naturalHeight) {
+                setImgRatio(t.naturalWidth / t.naturalHeight);
+              }
+            }}
+          />
+        )}
+      </div>
+    );
+  };
 
   return (
     <section id="case-studies" className="py-24 px-6 relative">
@@ -214,29 +258,10 @@ export default function CaseStudies() {
                     </DialogHeader>
                     <div className="w-full h-[66vh] sm:h-[70vh] flex items-center justify-center">
                       <Carousel key={`${active.id}-mobile`} className="w-full relative" opts={{ loop: true }} gutter={false}>
-                        <CarouselContent viewportClassName="h-[66vh] sm:h-[70vh]">
+                        <CarouselContent className="h-full" viewportClassName="h-[66vh] sm:h-[70vh]">
                           {[...((((active as any).videoUrls ?? [active.videoUrl]) as string[])), ...((((active as any).gallery ?? []) as string[]))].map((item: string, i: number) => (
                             <CarouselItem key={`${item}-${i}`} className="h-full flex items-center justify-center">
-                              <div className="w-full h-full flex items-center justify-center">
-                                {item.includes('youtube') || item.includes('youtu.be') ? (
-                                  <FitBox ratio={9/16} className="bg-black/40 rounded-xl">
-                                    <iframe
-                                      className="block w-full h-full rounded-xl"
-                                      src={`${item}?modestbranding=1&rel=0&controls=1&playsinline=1`}
-                                      title={`${active.title} Media ${i+1}`}
-                                      frameBorder="0"
-                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                      allowFullScreen
-                                    />
-                                  </FitBox>
-                                ) : (
-                                  <img
-                                    src={item}
-                                    alt={`${active.title} ${i+1}`}
-                                    className="w-full h-full object-contain rounded-xl bg-black/40"
-                                  />
-                                )}
-                              </div>
+                              <SlideMedia item={item} index={i} title={active.title} videoRatios={(active as any).videoRatios} />
                             </CarouselItem>
                           ))}
                         </CarouselContent>
