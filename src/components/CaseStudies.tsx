@@ -206,60 +206,102 @@ export default function CaseStudies() {
                 </div>
               </div>
             ) : (
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 h-full min-h-0">
-                {/* Media side: contain content with padding and no cropping */}
-                <div className="bg-black/60 glass-black flex items-center justify-center p-6 h-full min-h-0 rounded-l-3xl">
-                  {active.id === 1 ? (
-                    <Carousel className="w-full h-full relative" opts={{ loop: true }}>
-                      <CarouselContent className="h-full">
-                        {(((active as any).videoUrls ?? [active.videoUrl]) as string[]).map((url, i) => (
-                          <CarouselItem key={`${url}-${i}`} className="h-full">
-                            <FitBox ratio={9/16}>
-                              <iframe
-                                className="block w-full h-full rounded-xl"
-                                src={`${url}?modestbranding=1&rel=0&controls=1&playsinline=1`}
-                                title={`${active.title} Variant ${i+1}`}
-                                frameBorder="0"
-                                referrerPolicy="strict-origin-when-cross-origin"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowFullScreen
-                              />
-                            </FitBox>
-                          </CarouselItem>
-                        ))}
-                      </CarouselContent>
-                      <CarouselPrevious className="left-2 bg-white/10 hover:bg-white/20 border-0 text-white" />
-                      <CarouselNext className="right-2 bg-white/10 hover:bg-white/20 border-0 text-white" />
-                    </Carousel>
-                  ) : (
-                    <img src={active.coverImage} alt={active.title} className="block h-full w-auto max-w-full object-contain rounded-xl" />
-                  )}
+              <>
+                {/* Mason Pearson: Mobile-optimized single carousel (videos + photos) */}
+                {active.id === 1 && (
+                  <div className="lg:hidden h-full min-h-0 bg-black/60 glass-black flex flex-col p-4 gap-4 rounded-3xl">
+                    <DialogHeader className="shrink-0">
+                      <DialogTitle className="text-xl font-bold">{active.title}</DialogTitle>
+                    </DialogHeader>
+                    <div className="flex-1 min-h-0 flex items-center justify-center">
+                      <Carousel className="w-full relative flex-1 min-h-0" opts={{ loop: true }}>
+                        <CarouselContent className="h-full">
+                          {[...((((active as any).videoUrls ?? [active.videoUrl]) as string[])), ...((((active as any).gallery ?? []) as string[]))].map((item: string, i: number) => (
+                            <CarouselItem key={`${item}-${i}`} className="h-full">
+                              <FitBox ratio={9/16}>
+                                {item.includes('youtube') || item.includes('youtu.be') ? (
+                                  <iframe
+                                    className="block w-full h-full rounded-xl"
+                                    src={`${item}?modestbranding=1&rel=0&controls=1&playsinline=1`}
+                                    title={`${active.title} Media ${i+1}`}
+                                    frameBorder="0"
+                                    referrerPolicy="strict-origin-when-cross-origin"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowFullScreen
+                                  />
+                                ) : (
+                                  <img src={item} alt={`${active.title} ${i+1}`} className="block h-full w-auto max-w-full object-contain rounded-xl" />
+                                )}
+                              </FitBox>
+                            </CarouselItem>
+                          ))}
+                        </CarouselContent>
+                        <CarouselPrevious className="left-2 bg-white/10 hover:bg-white/20 border-0 text-white" />
+                        <CarouselNext className="right-2 bg-white/10 hover:bg-white/20 border-0 text-white" />
+                      </Carousel>
+                    </div>
+                    <p className="text-muted-foreground text-sm">
+                      {(active as any).blurb ?? active.description}
+                    </p>
+                  </div>
+                )}
+
+                {/* Default two-column layout (hidden on small screens for Mason Pearson) */}
+                <div className={`${active.id === 1 ? 'hidden lg:grid' : 'grid'} grid-cols-1 lg:grid-cols-2 gap-0 h-full min-h-0`}>
+                  {/* Media side: contain content with padding and no cropping */}
+                  <div className="bg-black/60 glass-black flex items-center justify-center p-6 h-full min-h-0 rounded-l-3xl">
+                    {active.id === 1 ? (
+                      <Carousel className="w-full h-full relative" opts={{ loop: true }}>
+                        <CarouselContent className="h-full">
+                          {(((active as any).videoUrls ?? [active.videoUrl]) as string[]).map((url, i) => (
+                            <CarouselItem key={`${url}-${i}`} className="h-full">
+                              <FitBox ratio={9/16}>
+                                <iframe
+                                  className="block w-full h-full rounded-xl"
+                                  src={`${url}?modestbranding=1&rel=0&controls=1&playsinline=1`}
+                                  title={`${active.title} Variant ${i+1}`}
+                                  frameBorder="0"
+                                  referrerPolicy="strict-origin-when-cross-origin"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                  allowFullScreen
+                                />
+                              </FitBox>
+                            </CarouselItem>
+                          ))}
+                        </CarouselContent>
+                        <CarouselPrevious className="left-2 bg-white/10 hover:bg-white/20 border-0 text-white" />
+                        <CarouselNext className="right-2 bg-white/10 hover:bg-white/20 border-0 text-white" />
+                      </Carousel>
+                    ) : (
+                      <img src={active.coverImage} alt={active.title} className="block h-full w-auto max-w-full object-contain rounded-xl" />
+                    )}
+                  </div>
+                  {/* Info + gallery side: keep contained and margin */}
+                  <div className="p-6 space-y-4 overflow-hidden flex flex-col h-full min-h-0 bg-black/30">
+                    <DialogHeader>
+                      <DialogTitle className="text-2xl font-bold">{active.title}</DialogTitle>
+                    </DialogHeader>
+                    <p className="text-muted-foreground shrink-0">
+                      {(active as any).blurb ?? active.description}
+                    </p>
+                    {(active as any).gallery && Array.isArray((active as any).gallery) && (
+                      <Carousel className="w-full relative flex-1 min-h-0" opts={{ loop: true }}>
+                        <CarouselContent className="h-full">
+                          {(active as any).gallery.map((src: string) => (
+                            <CarouselItem key={src} className="h-full">
+                              <div className="w-full h-full flex items-center justify-center">
+                                <img src={src} alt="Gallery" className="block h-full w-auto max-w-full object-contain rounded-lg" />
+                              </div>
+                            </CarouselItem>
+                          ))}
+                        </CarouselContent>
+                        <CarouselPrevious className="left-2" />
+                        <CarouselNext className="right-2" />
+                      </Carousel>
+                    )}
+                  </div>
                 </div>
-                {/* Info + gallery side: keep contained and margin */}
-                <div className="p-6 space-y-4 overflow-hidden flex flex-col h-full min-h-0 bg-black/30">
-                  <DialogHeader>
-                    <DialogTitle className="text-2xl font-bold">{active.title}</DialogTitle>
-                  </DialogHeader>
-                  <p className="text-muted-foreground shrink-0">
-                    {(active as any).blurb ?? active.description}
-                  </p>
-                  {(active as any).gallery && Array.isArray((active as any).gallery) && (
-                    <Carousel className="w-full relative flex-1 min-h-0" opts={{ loop: true }}>
-                      <CarouselContent className="h-full">
-                        {(active as any).gallery.map((src: string) => (
-                          <CarouselItem key={src} className="h-full">
-                            <div className="w-full h-full flex items-center justify-center">
-                              <img src={src} alt="Gallery" className="block h-full w-auto max-w-full object-contain rounded-lg" />
-                            </div>
-                          </CarouselItem>
-                        ))}
-                      </CarouselContent>
-                      <CarouselPrevious className="left-2" />
-                      <CarouselNext className="right-2" />
-                    </Carousel>
-                  )}
-                </div>
-              </div>
+              </>
             ))
           )}
         </DialogContent>
