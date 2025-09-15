@@ -229,7 +229,7 @@ export default function CaseStudies() {
         </div>
       </div>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-5xl p-4 sm:p-6 h-[85%] sm:h-[80%] max-h-[90%] overflow-hidden gap-0 rounded-3xl glass-black edge-light ring-1 ring-white/10 shadow-glow">
+        <DialogContent className="max-w-5xl p-4 sm:p-6 h-[85%] sm:h-[80%] max-h-[90%] overflow-hidden gap-0 rounded-3xl glass-black ring-1 ring-white/10">
           {active && (
             ((active as any).singleColumnVideo ? (
               // Single-column, wide 16:9 video only (e.g., Betway, CVC) with brand header
