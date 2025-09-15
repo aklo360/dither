@@ -1,21 +1,6 @@
 import { motion } from 'framer-motion';
-import { Play, Pause } from 'lucide-react';
-import { useState } from 'react';
 
 export default function AboutSection() {
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const handlePlayPause = () => {
-    const video = document.getElementById('hero-video') as HTMLVideoElement;
-    if (video) {
-      if (isPlaying) {
-        video.pause();
-      } else {
-        video.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
 
   return (
     <section className="py-24 px-6 relative grain">
@@ -123,45 +108,23 @@ export default function AboutSection() {
             className="relative"
           >
             <div className="glass-intense rounded-3xl overflow-hidden aspect-video relative group static">
-              {/* Video Element */}
-              <video
-                id="hero-video"
-                className="w-full h-full object-cover"
-                loop
-                muted
-                playsInline
-                preload="metadata"
-                poster="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop&auto=format"
-              >
-                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              
-              {/* Video Overlay */}
-              <div className="absolute inset-0 bg-black/20 dither group-hover:bg-black/10 transition-all duration-500"></div>
-              
-              {/* Play/Pause Button */}
-              <button
-                onClick={handlePlayPause}
-                className="absolute inset-0 flex items-center justify-center group-hover:bg-black/10 transition-all duration-300"
-              >
-                <div className="glass-intense p-6 rounded-full hover:scale-110 transition-all duration-300 group">
-                  {isPlaying ? (
-                    <Pause className="w-8 h-8 text-primary" />
-                  ) : (
-                    <Play className="w-8 h-8 text-primary ml-1" />
-                  )}
-                </div>
-              </button>
-              
-              {/* Video Label */}
-              <div className="absolute bottom-4 left-4">
-                <div className="glass px-4 py-2 rounded-xl">
-                  <span className="text-sm font-medium text-foreground/90">
-                    Behind the Algorithm
-                  </span>
-                </div>
+              {/* YouTube Embed */}
+              <div className="aspect-video w-full">
+                <iframe
+                  className="w-full h-full"
+                  src="https://www.youtube.com/embed/QkziM6QSNrI?modestbranding=1&rel=0&controls=0&iv_load_policy=3&showinfo=0&playsinline=1"
+                  title="AI Content with a Human Touch"
+                  frameBorder="0"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
               </div>
+              
+              {/* Overlay (non-blocking) */}
+              <div className="absolute inset-0 bg-black/20 dither group-hover:bg-black/10 transition-all duration-500 pointer-events-none"></div>
+              
+              {/* Video Label removed as requested */}
               
               {/* Static Noise Overlay */}
               <div className="absolute inset-0 opacity-[0.015] pointer-events-none">
@@ -175,15 +138,11 @@ export default function AboutSection() {
               </div>
             </div>
             
-            {/* Floating Elements */}
-            <div className="absolute -top-4 -right-4 glass rounded-2xl p-4 animate-float">
-              <div className="text-xs text-muted-foreground">AI-Powered</div>
-              <div className="text-sm font-bold gradient-text">Creative Engine</div>
-            </div>
+            {/* Removed: AI-Powered / Creative Engine badge */}
             
             <div className="absolute -bottom-6 -left-6 glass rounded-2xl p-4 animate-float" style={{ animationDelay: '2s' }}>
-              <div className="text-xs text-muted-foreground">Programmatic</div>
-              <div className="text-sm font-bold gradient-text">Brand Standards</div>
+              <div className="text-xs text-muted-foreground">View Our</div>
+              <div className="text-sm font-bold gradient-text">Debut Campaign</div>
             </div>
           </motion.div>
         </div>

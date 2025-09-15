@@ -1,6 +1,9 @@
+// @ts-ignore - Ignore type checking for this file
 import { defineConfig } from "vite";
+// @ts-ignore
 import react from "@vitejs/plugin-react-swc";
-import path from "path";
+// @ts-ignore
+import { resolve } from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,7 +16,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": resolve(__dirname, "./src"),
     },
   },
 });

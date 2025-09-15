@@ -190,6 +190,30 @@ All colors MUST be HSL.
     border-radius: inherit;
   }
 
+  /* Black Glass + Edge Lighting */
+  .glass-black {
+    background: linear-gradient(180deg, hsl(0 0% 6% / 0.85), hsl(0 0% 4% / 0.85));
+    border: 1px solid hsl(0 0% 100% / 0.06);
+    backdrop-filter: blur(18px) saturate(1.1);
+    -webkit-backdrop-filter: blur(18px) saturate(1.1);
+    box-shadow: var(--shadow-glass);
+    position: relative;
+  }
+
+  .edge-light {
+    position: relative;
+  }
+  .edge-light::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(120% 60% at 50% -10%, hsl(0 0% 100% / 0.12), transparent 60%),
+                radial-gradient(100% 50% at 50% 110%, hsl(0 0% 100% / 0.08), transparent 60%);
+    mix-blend-mode: screen;
+  }
+
   /* Gradient Text */
   .gradient-text {
     background: var(--gradient-primary);

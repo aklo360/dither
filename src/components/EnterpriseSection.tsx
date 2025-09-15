@@ -2,11 +2,6 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Users, Zap } from 'lucide-react';
 
 export default function EnterpriseSection() {
-  const handleContactUs = () => {
-    // This would open a contact modal in a real implementation
-    const contactSection = document.getElementById('contact');
-    contactSection?.scrollIntoView({ behavior: 'smooth' });
-  };
 
   return (
     <section className="py-24 px-6 relative overflow-hidden">
@@ -36,11 +31,10 @@ export default function EnterpriseSection() {
             viewport={{ once: true }}
           >
             <h2 className="text-5xl md:text-7xl font-bold gradient-text mb-6">
-              Need More Firepower?
+              Book a Free Consultation
             </h2>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto mb-12 leading-relaxed">
-              Enterprise solutions built for scale. Custom LoRa character models & mascot development, fine tuned brand style models 
-              and white-glove service for organizations that demand the extraordinary.
+              Book a call with us today to dicuss your company's marketing needs and how we can assist on a one-time or ongoing basis.
             </p>
           </motion.div>
 
@@ -64,7 +58,7 @@ export default function EnterpriseSection() {
                 <Users className="w-8 h-8 text-primary" />
               </div>
               <h3 className="text-xl font-semibold mb-2">AI Influencer Creation</h3>
-              <p className="text-muted-foreground">Account managers, engineers, and strategists</p>
+              <p className="text-muted-foreground">Digital Avatars to promote your brand.</p>
             </div>
             <div className="flex flex-col items-center text-center">
               <div className="p-4 bg-primary/20 rounded-2xl mb-4">
@@ -81,17 +75,14 @@ export default function EnterpriseSection() {
             transition={{ duration: 0.8, delay: 0.6 }}
             viewport={{ once: true }}
           >
-            <button
-              onClick={handleContactUs}
+            <a
+              href="mailto:info@dither.agency"
               className="group bg-gradient-to-r from-gray-700 to-gray-800 text-white hover:shadow-glow hover:from-gray-600 hover:to-gray-700 px-12 py-6 rounded-2xl text-xl font-medium transition-all duration-500 inline-flex items-center gap-4"
             >
-              Contact Our Enterprise Team
+              Reach Out
               <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" />
-            </button>
+            </a>
             
-            <p className="mt-6 text-sm text-muted-foreground">
-              Ready in 48 hours • Custom pricing • Dedicated onboarding
-            </p>
           </motion.div>
         </motion.div>
       </div>
