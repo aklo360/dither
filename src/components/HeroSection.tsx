@@ -21,11 +21,12 @@ export default function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 text-center max-w-6xl mx-auto px-6 flex flex-col items-center justify-center">
-        <div className="mb-8">
-          <img 
-            src="/dither-logo.png" 
-            alt="DITHER" 
-            className="h-24 md:h-28 mx-auto filter brightness-0 invert"
+        <div className="mb-8 relative flex items-center justify-center">
+          <div className="pointer-events-none absolute -inset-16 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.7)_0%,rgba(255,255,255,0)_60%)] blur-3xl opacity-70"></div>
+          <img
+            src="/dither-logo.png"
+            alt="DITHER"
+            className="relative z-10 h-24 md:h-28 mx-auto filter brightness-0 invert drop-shadow-[0_0_80px_rgba(255,255,255,0.35)]"
           />
         </div>
         
