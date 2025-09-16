@@ -22,10 +22,10 @@ export default function Footer() {
             © {currentYear} Dither Agency. All rights reserved.
           </p>
           <a
-            href="mailto:info@dither.agency"
+            href="mailto:hello@dither.agency"
             className="text-sm text-muted-foreground hover:text-primary transition-colors"
           >
-            Contact Us: info@dither.agency
+            Contact Us: hello@dither.agency
           </a>
         </motion.div>
       </div>
